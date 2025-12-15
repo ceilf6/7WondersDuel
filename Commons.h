@@ -1,4 +1,3 @@
-/* Commons.h */
 #ifndef COMMONS_H
 #define COMMONS_H
 
@@ -22,17 +21,27 @@ namespace Color {
 
 enum class CardType { RAW_MATERIAL, MANUFACTURED, CIVILIAN, SCIENTIFIC, COMMERCIAL, MILITARY, GUILD };
 enum class Resource { WOOD, CLAY, STONE, GLASS, PAPYRUS, COIN, NONE };
-
-// 6种核心符号 + 1个填充
 enum class ScienceSymbol { GLOBE, WHEEL, MORTAR, LAW, MECHANIC, WRITING, NONE };
+enum class WonderEffect { NONE, REPLAY, REVIVE_DISCARD, DESTROY_BROWN, DESTROY_GREY };
+enum class TokenType { AGRICULTURE, ARCHITECTURE, ECONOMY, STRATEGY, THEOLOGY, URBANISM, MATHEMATICS, LAW };
 
 struct Wonder {
     std::string name;
-    int costCoins;
+    std::map<Resource, int> costResources;
     int victoryPoints;
     int shields;
+    WonderEffect effect;
+    bool hasReplay;
     bool isBuilt;
-    Wonder(std::string n, int c, int vp, int s) : name(n), costCoins(c), victoryPoints(vp), shields(s), isBuilt(false) {}
+
+    Wonder(std::string n, std::map<Resource, int> c, int vp, int s, WonderEffect eff, bool replay)
+        : name(n), costResources(c), victoryPoints(vp), shields(s), effect(eff), hasReplay(replay), isBuilt(false) {}
+};
+
+struct ProgressToken {
+    std::string name;
+    TokenType type;
+    std::string desc;
 };
 
 #endif // COMMONS_H

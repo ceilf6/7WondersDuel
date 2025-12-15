@@ -1,46 +1,31 @@
-/* Game.h */
 #ifndef GAME_H
 #define GAME_H
-
 #include <memory>
 #include <vector>
 #include "Board.h"
 #include "Player.h"
-#include "SmartAI.h" // 引入智能AI
+#include "SmartAI.h"
 
 class Game {
-private:
     Board board;
-    std::shared_ptr<Player> p1;
-    std::shared_ptr<Player> p2;
-    
-    int currentAge;
+    std::shared_ptr<Player> p1, p2;
+    int currentAge, militaryToken;
+    int wondersBuiltCount; // [专家] 全球奇迹上限计数
     bool isGameOver;
-    int militaryToken; // 0:中间, -9:P1胜, 9:P2胜
-
+    std::vector<ProgressToken> tokenPool;
+    
     void clearInputBuffer();
-
 public:
     Game();
-    
-    // 初始化配置
     void setup();
-    
-    // 游戏主循环
     void run();
-
 private:
-    // 回合逻辑
-    void playTurn(std::shared_ptr<Player> active, std::shared_ptr<Player> opponent);
-    
-    // 胜利判定 (军事/科技)
+    bool playTurn(std::shared_ptr<Player> active, std::shared_ptr<Player> opponent);
     bool checkInstantVictory();
-    
-    // 最终算分
     void calculateScore();
-    
-    // 牌堆工厂
     std::vector<std::shared_ptr<Card>> createDeck(int age);
+    
+    void handleTokenSelection(std::shared_ptr<Player> p);
+    void handleWonderEffect(WonderEffect eff, std::shared_ptr<Player> active, std::shared_ptr<Player> opp);
 };
-
-#endif // GAME_H
+#endif

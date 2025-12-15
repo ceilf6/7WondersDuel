@@ -1,8 +1,6 @@
-/* main.cpp */
 #include "Game.h"
-
 int main() {
-    Game duelGame;
-    duelGame.run();
+    Game g;
+    g.run();
     return 0;
 }

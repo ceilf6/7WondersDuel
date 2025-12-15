@@ -1,1 +1,0 @@
-$OutputEncoding = [Console]::OutputEncoding = [System.Text.Encoding]::UTF8; g++ main.cpp Game.cpp Board.cpp Player.cpp Card.cpp SmartAI.cpp -o main.exe; .\main.exe
