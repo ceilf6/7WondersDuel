@@ -6,11 +6,22 @@
 #include <iomanip>
 #include <algorithm>
 
-std::string resIcon(Resource r) {
-    switch(r) {
-        case Resource::WOOD: return "🌲"; case Resource::CLAY: return "🧱";
-        case Resource::STONE: return "🗿"; case Resource::GLASS: return "🔮";
-        case Resource::PAPYRUS: return "📜"; default: return "";
+std::string resIcon(Resource r)
+{
+    switch (r)
+    {
+    case Resource::WOOD:
+        return "🌲";
+    case Resource::CLAY:
+        return "🧱";
+    case Resource::STONE:
+        return "🗿";
+    case Resource::GLASS:
+        return "🔮";
+    case Resource::PAPYRUS:
+        return "📜";
+    default:
+        return "";
     }
 }
 
@@ -18,86 +29,133 @@ Player::Player(std::string n) : name(n), coins(7) {}
 std::string Player::getName() const { return name; }
 int Player::getCoins() const { return coins; }
 void Player::addCoins(int amount) { coins += amount; }
-void Player::payCoins(int amount) { coins -= amount; if(coins < 0) coins = 0; }
+void Player::payCoins(int amount)
+{
+    coins -= amount;
+    if (coins < 0)
+        coins = 0;
+}
 void Player::addResource(Resource res, int amount) { resourceProduction[res] += amount; }
-int Player::getResourceCount(Resource res) const { auto it = resourceProduction.find(res); return (it!=resourceProduction.end())?it->second:0; }
+int Player::getResourceCount(Resource res) const
+{
+    auto it = resourceProduction.find(res);
+    return (it != resourceProduction.end()) ? it->second : 0;
+}
 
-int Player::getCardCount(CardType type) const {
+int Player::getCardCount(CardType type) const
+{
     int count = 0;
-    for(const auto& c : builtCards) if(c->getType() == type) count++;
+    for (const auto &c : builtCards)
+        if (c->getType() == type)
+            count++;
     return count;
 }
 
-int Player::calculateActualCost(const std::shared_ptr<Card>& card, const std::shared_ptr<Player>& opponent) const {
-    if (!card->getChainCost().empty() && ownedChains.count(card->getChainCost())) return 0;
+int Player::calculateActualCost(const std::shared_ptr<Card> &card, const std::shared_ptr<Player> &opponent) const
+{
+    if (!card->getChainCost().empty() && ownedChains.count(card->getChainCost()))
+        return 0;
     int totalCost = card->getCostCoins();
-    for (auto const& [res, needed] : card->getResourceCost()) {
+    for (auto const &[res, needed] : card->getResourceCost())
+    {
         int my = getResourceCount(res);
-        if (my < needed) {
+        if (my < needed)
+        {
             int missing = needed - my;
             int price = 2;
-            if (discountedResources.count(res)) price = 1;
-            else if (opponent) price += opponent->getResourceCount(res);
+            if (discountedResources.count(res))
+                price = 1;
+            else if (opponent)
+                price += opponent->getResourceCount(res);
             totalCost += (missing * price);
         }
     }
-    if (coins < totalCost) return -1;
+    if (coins < totalCost)
+        return -1;
     return totalCost;
 }
 
-int Player::calculateWonderCost(const Wonder& w, const std::shared_ptr<Player>& opponent) const {
+int Player::calculateWonderCost(const Wonder &w, const std::shared_ptr<Player> &opponent) const
+{
     int discount = hasToken(TokenType::ARCHITECTURE) ? 2 : 0;
     int totalCost = 0;
     std::map<Resource, int> remainingCost = w.costResources;
 
-    for (auto it = remainingCost.begin(); it != remainingCost.end(); ) {
+    for (auto it = remainingCost.begin(); it != remainingCost.end();)
+    {
         int my = getResourceCount(it->first);
-        if (my >= it->second) { it = remainingCost.erase(it); }
-        else { it->second -= my; ++it; }
+        if (my >= it->second)
+        {
+            it = remainingCost.erase(it);
+        }
+        else
+        {
+            it->second -= my;
+            ++it;
+        }
     }
 
     int totalMissingCount = 0;
-    for (auto const& [res, count] : remainingCost) totalMissingCount += count;
+    for (auto const &[res, count] : remainingCost)
+        totalMissingCount += count;
     int finalMissing = std::max(0, totalMissingCount - discount);
 
-    if (finalMissing > 0) {
+    if (finalMissing > 0)
+    {
         int currentMissing = 0;
-        for (auto const& [res, count] : remainingCost) {
-            if (currentMissing >= finalMissing) break;
+        for (auto const &[res, count] : remainingCost)
+        {
+            if (currentMissing >= finalMissing)
+                break;
             int neededForRes = count;
             int price = 2;
-            if (discountedResources.count(res)) price = 1;
-            else if (opponent) price += opponent->getResourceCount(res);
+            if (discountedResources.count(res))
+                price = 1;
+            else if (opponent)
+                price += opponent->getResourceCount(res);
 
             int take = std::min(neededForRes, finalMissing - currentMissing);
             totalCost += take * price;
             currentMissing += take;
         }
     }
-    if (coins < totalCost) return -1;
+    if (coins < totalCost)
+        return -1;
     return totalCost;
 }
 
-bool Player::buildCard(std::shared_ptr<Card> card, int costPaid) {
+bool Player::buildCard(std::shared_ptr<Card> card, int costPaid)
+{
     payCoins(costPaid);
     builtCards.push_back(card);
-    for (auto r : card->getProduction()) addResource(r, 1);
-    if (!card->getChainProvide().empty()) ownedChains.insert(card->getChainProvide());
-    if (!card->getChainCost().empty() && costPaid == 0 && hasToken(TokenType::URBANISM)) addCoins(4);
-    if (card->getDiscountResource() != Resource::NONE) discountedResources.insert(card->getDiscountResource());
+    for (auto r : card->getProduction())
+        addResource(r, 1);
+    if (!card->getChainProvide().empty())
+        ownedChains.insert(card->getChainProvide());
+    if (!card->getChainCost().empty() && costPaid == 0 && hasToken(TokenType::URBANISM))
+        addCoins(4);
+    if (card->getDiscountResource() != Resource::NONE)
+        discountedResources.insert(card->getDiscountResource());
 
-    if (card->getSymbol() != ScienceSymbol::NONE) {
+    if (card->getSymbol() != ScienceSymbol::NONE)
+    {
         scienceSymbolCounts[card->getSymbol()]++;
-        if (scienceSymbolCounts[card->getSymbol()] == 2) return true;
+        if (scienceSymbolCounts[card->getSymbol()] == 2)
+            return true;
     }
     return false;
 }
 
-void Player::destroyBuiltCard(CardType type) {
-    for (int i = builtCards.size() - 1; i >= 0; --i) {
-        if (builtCards[i]->getType() == type) {
-            for(auto r : builtCards[i]->getProduction()) resourceProduction[r]--;
-            if(builtCards[i]->getDiscountResource() != Resource::NONE) discountedResources.erase(builtCards[i]->getDiscountResource());
+void Player::destroyBuiltCard(CardType type)
+{
+    for (int i = builtCards.size() - 1; i >= 0; --i)
+    {
+        if (builtCards[i]->getType() == type)
+        {
+            for (auto r : builtCards[i]->getProduction())
+                resourceProduction[r]--;
+            if (builtCards[i]->getDiscountResource() != Resource::NONE)
+                discountedResources.erase(builtCards[i]->getDiscountResource());
             std::cout << Color::RED << "!!! " << builtCards[i]->getName() << " 被摧毁了 !!!" << Color::RESET << "\n";
             builtCards.erase(builtCards.begin() + i);
             return;
@@ -105,84 +163,112 @@ void Player::destroyBuiltCard(CardType type) {
     }
 }
 
-void Player::addProgressToken(TokenType t) {
+void Player::addProgressToken(TokenType t)
+{
     activeTokens.push_back(t);
-    if(t == TokenType::AGRICULTURE) addCoins(6);
+    if (t == TokenType::AGRICULTURE)
+        addCoins(6);
 }
-bool Player::hasToken(TokenType t) const {
-    for(auto tk : activeTokens) if(tk == t) return true;
+bool Player::hasToken(TokenType t) const
+{
+    for (auto tk : activeTokens)
+        if (tk == t)
+            return true;
     return false;
 }
 
-int Player::getScienceCount() const {
+int Player::getScienceCount() const
+{
     int count = scienceSymbolCounts.size();
-    if (hasToken(TokenType::LAW)) count++;
+    if (hasToken(TokenType::LAW))
+        count++;
     return count;
 }
 
 void Player::assignWonder(Wonder w) { wonders.push_back(w); }
-const std::vector<Wonder>& Player::getWonders() const { return wonders; }
-bool Player::canBuildWonder(int idx, const std::shared_ptr<Player>& opp) const {
-    return idx>=0 && idx<wonders.size() && !wonders[idx].isBuilt && calculateWonderCost(wonders[idx], opp) != -1;
+const std::vector<Wonder> &Player::getWonders() const { return wonders; }
+bool Player::canBuildWonder(int idx, const std::shared_ptr<Player> &opp) const
+{
+    return idx >= 0 && idx < wonders.size() && !wonders[idx].isBuilt && calculateWonderCost(wonders[idx], opp) != -1;
 }
-void Player::buildWonder(int idx, int cost) { payCoins(cost); wonders[idx].isBuilt = true; }
+void Player::buildWonder(int idx, int cost)
+{
+    payCoins(cost);
+    wonders[idx].isBuilt = true;
+}
 bool Player::hasScienceSymbol(ScienceSymbol s) const { return scienceSymbolCounts.count(s); }
-const std::vector<std::shared_ptr<Card>>& Player::getConstructedCards() const { return builtCards; }
+const std::vector<std::shared_ptr<Card>> &Player::getConstructedCards() const { return builtCards; }
 
 // ==========================================
 // [UI美化] 还原经典方框界面
 // ==========================================
-void Player::displayStatus() const {
+void Player::displayStatus() const
+{
     std::string border = "┌────────────────────────────────────────────────────────┐";
     std::string bottom = "└────────────────────────────────────────────────────────┘";
 
     std::cout << border << "\n";
+
     // Line 1: Name, Coins, Science
     std::cout << "│ " << std::left << std::setw(10) << name
               << " Coins: " << std::setw(2) << coins
-              << " | Sci: " << getScienceCount() << "/6";
-    // 补齐空格 (简单计算)
-    int padding = 56 - (10 + 10 + 12);
-    if(padding > 0) std::cout << std::string(padding, ' ');
-    std::cout << " │\n";
+              << " | Sci: " << getScienceCount() << "/6"
+              << std::string(25, ' ') << "│\n";
 
-    // Line 2: Resources
-    std::cout << "│ Res: ";
-    // 固定顺序输出图标: 木 土 石 玻 纸
-    std::cout << "🌲:" << getResourceCount(Resource::WOOD) << " ";
-    std::cout << "🧱:" << getResourceCount(Resource::CLAY) << " ";
-    std::cout << "🗿:" << getResourceCount(Resource::STONE) << " ";
-    std::cout << "🔮:" << getResourceCount(Resource::GLASS) << " ";
-    std::cout << "📜:" << getResourceCount(Resource::PAPYRUS) << " ";
-    // 计算剩余空间 (图标占宽需估算)
-    std::cout << "               │\n";
+    // Line 2: Resources (不用Emoji，改用文字)
+    std::cout << "│ Res: Wood:" << getResourceCount(Resource::WOOD)
+              << " Clay:" << getResourceCount(Resource::CLAY)
+              << " Stone:" << getResourceCount(Resource::STONE)
+              << " Glass:" << getResourceCount(Resource::GLASS)
+              << " Paper:" << getResourceCount(Resource::PAPYRUS)
+              << std::string(10, ' ') << "│\n";
 
     // Wonders Section
     std::cout << "│ Wonders:                                               │\n";
-    for(const auto& w : wonders) {
-        std::cout << "│  [" << (w.isBuilt ? "X" : " ") << "] "
-                  << std::left << std::setw(15) << w.name;
+    for (const auto &w : wonders)
+    {
+        std::string line = "│  [" + std::string(w.isBuilt ? "X" : " ") + "] " + w.name;
 
-        // 显示效果提示
-        std::string effStr = "";
-        if(w.hasReplay) effStr += "(Replay)";
-        if(w.victoryPoints > 0) effStr += "(" + std::to_string(w.victoryPoints) + "VP)";
-        std::cout << std::setw(30) << effStr << " │\n";
+        // 添加效果
+        if (w.hasReplay)
+            line += "(Replay)";
+        if (w.victoryPoints > 0)
+            line += "(" + std::to_string(w.victoryPoints) + "VP)";
+
+        // 填充到固定宽度
+        int currentLen = 0;
+        for (char c : line)
+            currentLen += (c & 0xC0) != 0x80 ? 1 : 0; // 粗略计算
+        int needPad = 56 - currentLen;
+        if (needPad > 0)
+            line += std::string(needPad, ' ');
+
+        std::cout << line << "│\n";
     }
 
     // Tokens Section (如果有)
-    if(!activeTokens.empty()) {
+    if (!activeTokens.empty())
+    {
         std::cout << "│ Buffs: ";
-        for(auto t : activeTokens) {
+        for (auto t : activeTokens)
+        {
             std::string tn = "";
-            if(t==TokenType::AGRICULTURE) tn="农";
-            else if(t==TokenType::ARCHITECTURE) tn="建";
-            else if(t==TokenType::ECONOMY) tn="经";
-            else if(t==TokenType::LAW) tn="法";
-            else if(t==TokenType::MATHEMATICS) tn="数";
-            else if(t==TokenType::STRATEGY) tn="战";
-            else if(t==TokenType::URBANISM) tn="城";
-            else if(t==TokenType::THEOLOGY) tn="神";
+            if (t == TokenType::AGRICULTURE)
+                tn = "农";
+            else if (t == TokenType::ARCHITECTURE)
+                tn = "建";
+            else if (t == TokenType::ECONOMY)
+                tn = "经";
+            else if (t == TokenType::LAW)
+                tn = "法";
+            else if (t == TokenType::MATHEMATICS)
+                tn = "数";
+            else if (t == TokenType::STRATEGY)
+                tn = "战";
+            else if (t == TokenType::URBANISM)
+                tn = "城";
+            else if (t == TokenType::THEOLOGY)
+                tn = "神";
             std::cout << "[" << tn << "] ";
         }
         std::cout << "\n";
@@ -191,40 +277,67 @@ void Player::displayStatus() const {
     std::cout << bottom << "\n";
 }
 
-int HumanPlayer::makeDecision(const std::vector<int>& availableIndices, const Board& board) {
+int HumanPlayer::makeDecision(const std::vector<int> &availableIndices, const Board &board)
+{
     int choice;
-    while(true) {
+    while (true)
+    {
         std::cout << ">> " << name << ", ID (-1退出): ";
-        if(!(std::cin>>choice)) { std::cin.clear(); std::cin.ignore(1000,'\n'); continue; }
-        if(choice==-1) return -1;
-        for(int idx : availableIndices) if(choice==idx) return choice;
+        if (!(std::cin >> choice))
+        {
+            std::cin.clear();
+            std::cin.ignore(1000, '\n');
+            continue;
+        }
+        if (choice == -1)
+            return -1;
+        for (int idx : availableIndices)
+            if (choice == idx)
+                return choice;
         std::cout << "无效.\n";
     }
 }
-int HumanPlayer::chooseCardToDestroy(const std::vector<std::shared_ptr<Card>>& targets) {
-    if(targets.empty()) return -1;
-    std::cout << "选择摧毁 (0-" << targets.size()-1 << "): \n";
-    for(size_t i=0; i<targets.size(); ++i) std::cout << i << ". " << targets[i]->getName() << "\n";
-    int c; std::cin >> c; return (c>=0 && c<targets.size()) ? c : 0;
+int HumanPlayer::chooseCardToDestroy(const std::vector<std::shared_ptr<Card>> &targets)
+{
+    if (targets.empty())
+        return -1;
+    std::cout << "选择摧毁 (0-" << targets.size() - 1 << "): \n";
+    for (size_t i = 0; i < targets.size(); ++i)
+        std::cout << i << ". " << targets[i]->getName() << "\n";
+    int c;
+    std::cin >> c;
+    return (c >= 0 && c < targets.size()) ? c : 0;
 }
-int HumanPlayer::chooseCardToRevive(const std::vector<std::shared_ptr<Card>>& dp) {
-    if(dp.empty()) return -1;
-    std::cout << "选择复活 (0-" << dp.size()-1 << "): \n";
-    for(size_t i=0; i<dp.size(); ++i) std::cout << i << ". " << dp[i]->getName() << "\n";
-    int c; std::cin >> c; return (c>=0 && c<dp.size()) ? c : 0;
+int HumanPlayer::chooseCardToRevive(const std::vector<std::shared_ptr<Card>> &dp)
+{
+    if (dp.empty())
+        return -1;
+    std::cout << "选择复活 (0-" << dp.size() - 1 << "): \n";
+    for (size_t i = 0; i < dp.size(); ++i)
+        std::cout << i << ". " << dp[i]->getName() << "\n";
+    int c;
+    std::cin >> c;
+    return (c >= 0 && c < dp.size()) ? c : 0;
 }
-int HumanPlayer::chooseProgressToken(const std::vector<ProgressToken>& av) {
-    std::cout << "选择标记 (0-" << av.size()-1 << "): \n";
-    for(size_t i=0; i<av.size(); ++i) std::cout << i << ". " << av[i].name << "\n";
-    int c; std::cin >> c; return (c>=0 && c<av.size()) ? c : 0;
+int HumanPlayer::chooseProgressToken(const std::vector<ProgressToken> &av)
+{
+    std::cout << "选择标记 (0-" << av.size() - 1 << "): \n";
+    for (size_t i = 0; i < av.size(); ++i)
+        std::cout << i << ". " << av[i].name << "\n";
+    int c;
+    std::cin >> c;
+    return (c >= 0 && c < av.size()) ? c : 0;
 }
-int HumanPlayer::chooseWhoStarts(std::string p1Name, std::string p2Name) {
+int HumanPlayer::chooseWhoStarts(std::string p1Name, std::string p2Name)
+{
     std::cout << ">>> " << name << ", 请决定下一时代谁先手:\n1. " << p1Name << "\n2. " << p2Name << "\n选择 (1/2): ";
-    int c; std::cin >> c; return c;
+    int c;
+    std::cin >> c;
+    return c;
 }
 
-int AIPlayer::makeDecision(const std::vector<int>& idx, const Board&) { return idx.empty()?-1:idx[rand()%idx.size()]; }
-int AIPlayer::chooseCardToDestroy(const std::vector<std::shared_ptr<Card>>& t) { return t.empty()?-1:0; }
-int AIPlayer::chooseCardToRevive(const std::vector<std::shared_ptr<Card>>& dp) { return dp.empty()?-1:dp.size()-1; }
-int AIPlayer::chooseProgressToken(const std::vector<ProgressToken>&) { return 0; }
+int AIPlayer::makeDecision(const std::vector<int> &idx, const Board &) { return idx.empty() ? -1 : idx[rand() % idx.size()]; }
+int AIPlayer::chooseCardToDestroy(const std::vector<std::shared_ptr<Card>> &t) { return t.empty() ? -1 : 0; }
+int AIPlayer::chooseCardToRevive(const std::vector<std::shared_ptr<Card>> &dp) { return dp.empty() ? -1 : dp.size() - 1; }
+int AIPlayer::chooseProgressToken(const std::vector<ProgressToken> &) { return 0; }
 int AIPlayer::chooseWhoStarts(std::string p1Name, std::string p2Name) { return (name == p1Name) ? 1 : 2; }
