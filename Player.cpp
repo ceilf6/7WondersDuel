@@ -249,29 +249,32 @@ void Player::displayStatus() const
     // Tokens Section (如果有)
     if (!activeTokens.empty())
     {
-        std::cout << "│ Buffs: ";
-        for (auto t : activeTokens)
+        std::cout << "│ 🎯科技标记: ";
+        for (size_t i = 0; i < activeTokens.size(); ++i)
         {
+            auto t = activeTokens[i];
             std::string tn = "";
             if (t == TokenType::AGRICULTURE)
-                tn = "农";
+                tn = "农业(+6💰+4分)";
             else if (t == TokenType::ARCHITECTURE)
-                tn = "建";
+                tn = "建筑(奇迹-2资)";
             else if (t == TokenType::ECONOMY)
-                tn = "经";
+                tn = "经济(交易归你)";
             else if (t == TokenType::LAW)
-                tn = "法";
+                tn = "法律(+1科技)";
             else if (t == TokenType::MATHEMATICS)
-                tn = "数";
+                tn = "数学(每标+3分)";
             else if (t == TokenType::STRATEGY)
-                tn = "战";
+                tn = "策略(军+1盾)";
             else if (t == TokenType::URBANISM)
-                tn = "城";
+                tn = "城规(链+4💰)";
             else if (t == TokenType::THEOLOGY)
-                tn = "神";
-            std::cout << "[" << tn << "] ";
+                tn = "神学(奇迹再行动)";
+            std::cout << tn;
+            if (i < activeTokens.size() - 1)
+                std::cout << ", ";
         }
-        std::cout << "\n";
+        std::cout << std::string(10, ' ') << "│\n";
     }
 
     std::cout << bottom << "\n";
@@ -321,9 +324,11 @@ int HumanPlayer::chooseCardToRevive(const std::vector<std::shared_ptr<Card>> &dp
 }
 int HumanPlayer::chooseProgressToken(const std::vector<ProgressToken> &av)
 {
-    std::cout << "选择标记 (0-" << av.size() - 1 << "): \n";
+    std::cout << "\n" << Color::MAGENTA << "🎯 选择科技标记 (0-" << av.size() - 1 << "):" << Color::RESET << "\n";
     for (size_t i = 0; i < av.size(); ++i)
-        std::cout << i << ". " << av[i].name << "\n";
+        std::cout << Color::CYAN << i << ". " << Color::BOLD << av[i].name << Color::RESET 
+                  << " - " << Color::GREY << av[i].desc << Color::RESET << "\n";
+    std::cout << ">> 你的选择: ";
     int c;
     std::cin >> c;
     return (c >= 0 && c < av.size()) ? c : 0;

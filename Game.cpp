@@ -23,7 +23,7 @@ void Game::clearInputBuffer()
 // ==========================================
 // [UI] 绘制顶部状态栏 (动态军事条)
 // ==========================================
-void drawHeader(int age, int militaryToken, std::string p1Name, std::string p2Name)
+void drawHeader(int age, int militaryToken, std::string p1Name, std::string p2Name, const std::vector<ProgressToken>& tokenPool)
 {
     clearScreen();
     std::cout << Color::BOLD << " >>> 7 WONDERS DUEL - AGE " << age << " <<<" << Color::RESET << "\n";
@@ -67,7 +67,25 @@ void drawHeader(int age, int militaryToken, std::string p1Name, std::string p2Na
     }
     std::cout << Color::RESET;
 
-    std::cout << " " << p2Name << "\n\n";
+    std::cout << " " << p2Name << "\n";
+
+    // 显示可用科技标记
+    if (!tokenPool.empty())
+    {
+        std::cout << "\n" << Color::MAGENTA << "🎯 可用科技标记 (" << tokenPool.size() << "/8): " << Color::RESET;
+        for (size_t i = 0; i < tokenPool.size(); ++i)
+        {
+            std::cout << Color::CYAN << tokenPool[i].name << Color::RESET;
+            if (i < tokenPool.size() - 1)
+                std::cout << " | ";
+        }
+        std::cout << "\n";
+    }
+    else
+    {
+        std::cout << "\n" << Color::GREY << "🎯 科技标记已全部获取" << Color::RESET << "\n";
+    }
+    std::cout << "\n";
 }
 
 void Game::setup()
@@ -430,7 +448,7 @@ void Game::run()
         auto active = nextStartPlayer;
         auto opp = (active == p1) ? p2 : p1;
 
-        drawHeader(age, militaryToken, p1->getName(), p2->getName());
+        drawHeader(age, militaryToken, p1->getName(), p2->getName(), tokenPool);
         p1->displayStatus();
         p2->displayStatus();
         std::cout << "\n>>> 准备进入时代 " << age << "... <<<\n";
@@ -441,7 +459,7 @@ void Game::run()
             bool replay = false;
             do
             {
-                drawHeader(age, militaryToken, p1->getName(), p2->getName());
+                drawHeader(age, militaryToken, p1->getName(), p2->getName(), tokenPool);
 
                 if (replay)
                     std::cout << Color::MAGENTA << ">>> [再来一回合] " << active->getName() << " 继续行动! <<<\n"
