@@ -148,20 +148,17 @@ void Game::setup()
     // 奇迹抽取阶段
     std::cout << "\n"
               << Color::BOLD << "=== 奇迹抽取阶段 ===" << Color::RESET << "\n";
-    std::cout << "每位玩家将抽取4个奇迹\n\n";
+    std::cout << "规则：两轮轮抽，每轮4张奇迹\n";
+    std::cout << "每轮：先手选1张 -> 后手选2张 -> 剩余1张给先手\n";
+    std::cout << "第二轮先手顺序对调\n\n";
 
-    // P1 抽取并选择4个奇迹
-    std::cout << Color::CYAN << p1->getName() << " 的奇迹选择:\n"
-              << Color::RESET;
-    for (int i = 0; i < 4 && !wonderPool.empty(); ++i)
+    // 辅助函数：显示奇迹列表
+    auto displayWonders = [](const std::vector<Wonder> &wonders, int startIdx = 0)
     {
-        // 展示当前2个待选奇迹
-        std::cout << "\n可选奇迹:\n";
-        int showCount = std::min(2, (int)wonderPool.size());
-        for (int j = 0; j < showCount; ++j)
+        for (size_t i = 0; i < wonders.size(); ++i)
         {
-            const auto &w = wonderPool[j];
-            std::cout << j << ". " << Color::BOLD << w.name << Color::RESET;
+            const auto &w = wonders[i];
+            std::cout << (startIdx + i) << ". " << Color::BOLD << w.name << Color::RESET;
             std::cout << " - 成本:[";
             for (auto &p : w.costResources)
             {
@@ -191,85 +188,123 @@ void Game::setup()
                 std::cout << "♻️复活 ";
             std::cout << "\n";
         }
+    };
 
+    // 辅助函数：进行选择
+    auto makeChoice = [](std::shared_ptr<Player> player, const std::vector<Wonder> &options, int maxChoice) -> int
+    {
         int choice = 0;
-        if (auto human = std::dynamic_pointer_cast<HumanPlayer>(p1))
+        if (auto human = std::dynamic_pointer_cast<HumanPlayer>(player))
         {
-            std::cout << "选择 (0-" << (showCount - 1) << "): ";
+            std::cout << player->getName() << " 选择 (0-" << (maxChoice - 1) << "): ";
             std::cin >> choice;
-            if (choice < 0 || choice >= showCount)
+            if (choice < 0 || choice >= maxChoice)
+            {
+                std::cout << Color::YELLOW << "无效选择，默认选择0\n"
+                          << Color::RESET;
                 choice = 0;
+            }
         }
         else
         {
-            // AI 简单选第一个
-            choice = 0;
+            // AI 简单选择策略：优先高分、有盾、有再行动
+            int bestIdx = 0;
+            int bestScore = -1000;
+            for (size_t i = 0; i < options.size() && i < maxChoice; ++i)
+            {
+                int score = options[i].victoryPoints * 2 + options[i].shields * 3;
+                if (options[i].hasReplay)
+                    score += 5;
+                if (score > bestScore)
+                {
+                    bestScore = score;
+                    bestIdx = i;
+                }
+            }
+            choice = bestIdx;
         }
+        return choice;
+    };
 
-        p1->assignWonder(wonderPool[choice]);
-        std::cout << Color::GREEN << "✓ 选择了: " << wonderPool[choice].name << Color::RESET << "\n";
-        wonderPool.erase(wonderPool.begin() + choice);
+    // 第一轮：4张奇迹，P1先选
+    std::cout << Color::BOLD << "--- 第一轮 ---" << Color::RESET << "\n";
+    std::vector<Wonder> round1Wonders;
+    for (int i = 0; i < 4 && !wonderPool.empty(); ++i)
+    {
+        round1Wonders.push_back(wonderPool.back());
+        wonderPool.pop_back();
     }
 
-    // P2 抽取并选择4个奇迹
+    // P1 先选1张
     std::cout << "\n"
-              << Color::CYAN << p2->getName() << " 的奇迹选择:\n"
+              << Color::CYAN << p1->getName() << " 先选1张:\n"
               << Color::RESET;
+    displayWonders(round1Wonders);
+    int choice1 = makeChoice(p1, round1Wonders, round1Wonders.size());
+    p1->assignWonder(round1Wonders[choice1]);
+    std::cout << Color::GREEN << "✓ " << p1->getName() << " 选择了: " << round1Wonders[choice1].name << Color::RESET << "\n";
+    round1Wonders.erase(round1Wonders.begin() + choice1);
+
+    // P2 选2张
+    std::cout << "\n"
+              << Color::CYAN << p2->getName() << " 选2张:\n"
+              << Color::RESET;
+    for (int i = 0; i < 2 && !round1Wonders.empty(); ++i)
+    {
+        std::cout << "\n第" << (i + 1) << "张选择:\n";
+        displayWonders(round1Wonders);
+        int choice2 = makeChoice(p2, round1Wonders, round1Wonders.size());
+        p2->assignWonder(round1Wonders[choice2]);
+        std::cout << Color::GREEN << "✓ " << p2->getName() << " 选择了: " << round1Wonders[choice2].name << Color::RESET << "\n";
+        round1Wonders.erase(round1Wonders.begin() + choice2);
+    }
+
+    // 剩余1张给P1
+    if (!round1Wonders.empty())
+    {
+        p1->assignWonder(round1Wonders[0]);
+        std::cout << Color::GREEN << "✓ " << p1->getName() << " 获得剩余奇迹: " << round1Wonders[0].name << Color::RESET << "\n";
+    }
+
+    // 第二轮：4张奇迹，P2先选
+    std::cout << "\n"
+              << Color::BOLD << "--- 第二轮 ---" << Color::RESET << "\n";
+    std::vector<Wonder> round2Wonders;
     for (int i = 0; i < 4 && !wonderPool.empty(); ++i)
     {
-        std::cout << "\n可选奇迹:\n";
-        int showCount = std::min(2, (int)wonderPool.size());
-        for (int j = 0; j < showCount; ++j)
-        {
-            const auto &w = wonderPool[j];
-            std::cout << j << ". " << Color::BOLD << w.name << Color::RESET;
-            std::cout << " - 成本:[";
-            for (auto &p : w.costResources)
-            {
-                if (p.first == Resource::WOOD)
-                    std::cout << "木" << p.second << " ";
-                else if (p.first == Resource::CLAY)
-                    std::cout << "泥" << p.second << " ";
-                else if (p.first == Resource::STONE)
-                    std::cout << "石" << p.second << " ";
-                else if (p.first == Resource::GLASS)
-                    std::cout << "玻" << p.second << " ";
-                else if (p.first == Resource::PAPYRUS)
-                    std::cout << "纸" << p.second << " ";
-            }
-            std::cout << "] ";
-            if (w.victoryPoints > 0)
-                std::cout << w.victoryPoints << "分 ";
-            if (w.shields > 0)
-                std::cout << w.shields << "盾 ";
-            if (w.hasReplay)
-                std::cout << "🔄再行动 ";
-            if (w.effect == WonderEffect::DESTROY_BROWN)
-                std::cout << "💥毁原料 ";
-            if (w.effect == WonderEffect::DESTROY_GREY)
-                std::cout << "💥毁制品 ";
-            if (w.effect == WonderEffect::REVIVE_DISCARD)
-                std::cout << "♻️复活 ";
-            std::cout << "\n";
-        }
+        round2Wonders.push_back(wonderPool.back());
+        wonderPool.pop_back();
+    }
 
-        int choice = 0;
-        if (auto human = std::dynamic_pointer_cast<HumanPlayer>(p2))
-        {
-            std::cout << "选择 (0-" << (showCount - 1) << "): ";
-            std::cin >> choice;
-            if (choice < 0 || choice >= showCount)
-                choice = 0;
-        }
-        else
-        {
-            // AI 简单选第一个
-            choice = 0;
-        }
+    // P2 先选1张
+    std::cout << "\n"
+              << Color::CYAN << p2->getName() << " 先选1张:\n"
+              << Color::RESET;
+    displayWonders(round2Wonders);
+    int choice3 = makeChoice(p2, round2Wonders, round2Wonders.size());
+    p2->assignWonder(round2Wonders[choice3]);
+    std::cout << Color::GREEN << "✓ " << p2->getName() << " 选择了: " << round2Wonders[choice3].name << Color::RESET << "\n";
+    round2Wonders.erase(round2Wonders.begin() + choice3);
 
-        p2->assignWonder(wonderPool[choice]);
-        std::cout << Color::GREEN << "✓ 选择了: " << wonderPool[choice].name << Color::RESET << "\n";
-        wonderPool.erase(wonderPool.begin() + choice);
+    // P1 选2张
+    std::cout << "\n"
+              << Color::CYAN << p1->getName() << " 选2张:\n"
+              << Color::RESET;
+    for (int i = 0; i < 2 && !round2Wonders.empty(); ++i)
+    {
+        std::cout << "\n第" << (i + 1) << "张选择:\n";
+        displayWonders(round2Wonders);
+        int choice4 = makeChoice(p1, round2Wonders, round2Wonders.size());
+        p1->assignWonder(round2Wonders[choice4]);
+        std::cout << Color::GREEN << "✓ " << p1->getName() << " 选择了: " << round2Wonders[choice4].name << Color::RESET << "\n";
+        round2Wonders.erase(round2Wonders.begin() + choice4);
+    }
+
+    // 剩余1张给P2
+    if (!round2Wonders.empty())
+    {
+        p2->assignWonder(round2Wonders[0]);
+        std::cout << Color::GREEN << "✓ " << p2->getName() << " 获得剩余奇迹: " << round2Wonders[0].name << Color::RESET << "\n";
     }
 
     std::cout << "\n"
