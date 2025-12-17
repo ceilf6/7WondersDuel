@@ -510,7 +510,8 @@ void Game::run()
                 drawHeader(age, militaryToken, p1->getName(), p2->getName(), tokenPool);
 
                 if (replay)
-                    std::cout << Color::MAGENTA << ">>> [再来一回合] " << active->getName() << " 继续行动! <<<\n" << Color::RESET;
+                    std::cout << Color::MAGENTA << ">>> [再来一回合] " << active->getName() << " 继续行动! <<<\n"
+                              << Color::RESET;
                 else
                     std::cout << ">>> 轮到 " << active->getName() << " 行动 <<<\n";
 
@@ -552,7 +553,7 @@ void Game::run()
 
         // [专家] 时代结束，判定下一时代先手
         if (!isGameOver && age < 3)
-            // ... (后续代码不变) ...
+        // ... (后续代码不变) ...
         {
             std::shared_ptr<Player> chooser = nullptr;
             // militaryToken > 0 表示 P1 占优 (标记在 P2 侧)，P2 弱 -> P2 选
