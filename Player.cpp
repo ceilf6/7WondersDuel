@@ -324,9 +324,10 @@ int HumanPlayer::chooseCardToRevive(const std::vector<std::shared_ptr<Card>> &dp
 }
 int HumanPlayer::chooseProgressToken(const std::vector<ProgressToken> &av)
 {
-    std::cout << "\n" << Color::MAGENTA << "🎯 选择科技标记 (0-" << av.size() - 1 << "):" << Color::RESET << "\n";
+    std::cout << "\n"
+              << Color::MAGENTA << "🎯 选择科技标记 (0-" << av.size() - 1 << "):" << Color::RESET << "\n";
     for (size_t i = 0; i < av.size(); ++i)
-        std::cout << Color::CYAN << i << ". " << Color::BOLD << av[i].name << Color::RESET 
+        std::cout << Color::CYAN << i << ". " << Color::BOLD << av[i].name << Color::RESET
                   << " - " << Color::GREY << av[i].desc << Color::RESET << "\n";
     std::cout << ">> 你的选择: ";
     int c;

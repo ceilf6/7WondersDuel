@@ -23,7 +23,7 @@ void Game::clearInputBuffer()
 // ==========================================
 // [UI] 绘制顶部状态栏 (动态军事条)
 // ==========================================
-void drawHeader(int age, int militaryToken, std::string p1Name, std::string p2Name, const std::vector<ProgressToken>& tokenPool)
+void drawHeader(int age, int militaryToken, std::string p1Name, std::string p2Name, const std::vector<ProgressToken> &tokenPool)
 {
     clearScreen();
     std::cout << Color::BOLD << " >>> 7 WONDERS DUEL - AGE " << age << " <<<" << Color::RESET << "\n";
@@ -72,7 +72,8 @@ void drawHeader(int age, int militaryToken, std::string p1Name, std::string p2Na
     // 显示可用科技标记
     if (!tokenPool.empty())
     {
-        std::cout << "\n" << Color::MAGENTA << "🎯 可用科技标记 (" << tokenPool.size() << "/8): " << Color::RESET;
+        std::cout << "\n"
+                  << Color::MAGENTA << "🎯 可用科技标记 (" << tokenPool.size() << "/8): " << Color::RESET;
         for (size_t i = 0; i < tokenPool.size(); ++i)
         {
             std::cout << Color::CYAN << tokenPool[i].name << Color::RESET;
@@ -83,7 +84,8 @@ void drawHeader(int age, int militaryToken, std::string p1Name, std::string p2Na
     }
     else
     {
-        std::cout << "\n" << Color::GREY << "🎯 科技标记已全部获取" << Color::RESET << "\n";
+        std::cout << "\n"
+                  << Color::GREY << "🎯 科技标记已全部获取" << Color::RESET << "\n";
     }
     std::cout << "\n";
 }
@@ -425,6 +427,9 @@ std::vector<std::shared_ptr<Card>> Game::createDeck(int age)
         deck.push_back(std::make_shared<CivilianCard>("方尖碑", 0, std::map<Resource, int>{{Resource::STONE, 2}}, 5));
         deck.push_back(std::make_shared<CivilianCard>("花园", 0, std::map<Resource, int>{{Resource::CLAY, 2}, {Resource::WOOD, 2}}, 6));
         deck.push_back(std::make_shared<CivilianCard>("参议院", 0, std::map<Resource, int>{{Resource::CLAY, 2}, {Resource::PAPYRUS, 1}}, 5));
+        deck.push_back(std::make_shared<MilitaryCard>("马戏团", 0, std::map<Resource, int>{{Resource::STONE, 2}, {Resource::WOOD, 2}}, 3));
+        deck.push_back(std::make_shared<CivilianCard>("市政厅", 0, std::map<Resource, int>{{Resource::STONE, 3}}, 6));
+        deck.push_back(std::make_shared<ScienceCard>("学院", 0, std::map<Resource, int>{{Resource::GLASS, 1}, {Resource::PAPYRUS, 1}}, ScienceSymbol::WRITING, 3));
     }
     return deck;
 }
@@ -454,16 +459,23 @@ void Game::run()
         std::cout << "\n>>> 准备进入时代 " << age << "... <<<\n";
         std::this_thread::sleep_for(std::chrono::seconds(2));
 
+        // ... (在 Game::run 函数内部) ...
+
         while (!isGameOver)
         {
+            // [新增] 每一大回合开始前，先检查还有没有牌。如果没有牌，说明时代结束。
+            if (board.getAvailableCardIndices().empty())
+            {
+                break; // 跳出 while(!isGameOver)，让代码向下执行去切换时代
+            }
+
             bool replay = false;
             do
             {
                 drawHeader(age, militaryToken, p1->getName(), p2->getName(), tokenPool);
 
                 if (replay)
-                    std::cout << Color::MAGENTA << ">>> [再来一回合] " << active->getName() << " 继续行动! <<<\n"
-                              << Color::RESET;
+                    std::cout << Color::MAGENTA << ">>> [再来一回合] " << active->getName() << " 继续行动! <<<\n" << Color::RESET;
                 else
                     std::cout << ">>> 轮到 " << active->getName() << " 行动 <<<\n";
 
@@ -474,7 +486,7 @@ void Game::run()
                 if (board.getAvailableCardIndices().empty())
                 {
                     replay = false;
-                    break;
+                    break; // 这里只能跳出 do...while
                 }
 
                 replay = playTurn(active, opp);
@@ -491,6 +503,12 @@ void Game::run()
 
             } while (replay);
 
+            // [新增] 再次检查：如果是因没牌而跳出内层循环的，这里必须彻底跳出外层循环
+            if (board.getAvailableCardIndices().empty())
+            {
+                break; // 关键修复！跳出 while，进入下一时代处理逻辑
+            }
+
             if (isGameOver)
                 break;
             std::swap(active, opp);
@@ -499,6 +517,7 @@ void Game::run()
 
         // [专家] 时代结束，判定下一时代先手
         if (!isGameOver && age < 3)
+            // ... (后续代码不变) ...
         {
             std::shared_ptr<Player> chooser = nullptr;
             // militaryToken > 0 表示 P1 占优 (标记在 P2 侧)，P2 弱 -> P2 选
