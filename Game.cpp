@@ -572,6 +572,31 @@ void Game::run()
     calculateScore();
 }
 
+std::string getCardDesc(std::shared_ptr<Card> c) {
+    if (c->getType() == CardType::GUILD) {
+        std::string g = c->getGuildType();
+        if (g == "Merchants") return "效果: 结算时，自己和对手每有一张[黄卡]，得1分。";
+        if (g == "Shipowners") return "效果: 结算时，自己和对手每有一张[棕卡]和[灰卡]，得1分。";
+        if (g == "Scientists") return "效果: 结算时，自己和对手每有一张[绿卡]，得1分。";
+        if (g == "Magistrates") return "效果: 结算时，自己和对手每有一张[蓝卡]，得1分。";
+        if (g == "Tacticians") return "效果: 结算时，自己和对手每有一张[红卡]，得1分。";
+        if (g == "Builders") return "效果: 结算时，自己和对手每有一个[已建奇迹]，得2分。";
+        if (g == "Moneylenders") return "效果: 结算时，自己和对手每有3枚金币，得1分。";
+    }
+    // 其他卡的简单描述
+    if (c->getType() == CardType::COMMERCIAL) {
+        std::string desc = "";
+        if(c->getImmediateCoins() > 0) desc += "立刻获得" + std::to_string(c->getImmediateCoins()) + "金币。";
+        if(c->getVictoryPoints() > 0) desc += " " + std::to_string(c->getVictoryPoints()) + "分。";
+        if(c->getDiscountResource() != Resource::NONE) desc += " 购买资源时减免1金。";
+        return desc;
+    }
+    if (c->getType() == CardType::SCIENTIFIC) return "集齐6种不同符号获科技胜利，或集齐2个相同获科技标记。";
+    if (c->getType() == CardType::MILITARY) return "增加盾牌，推进军事条。";
+    return "";
+}
+
+// [Game.cpp] 替换 playTurn 函数
 bool Game::playTurn(std::shared_ptr<Player> active, std::shared_ptr<Player> opp)
 {
     bool isHuman = (std::dynamic_pointer_cast<HumanPlayer>(active) != nullptr);
@@ -580,22 +605,31 @@ bool Game::playTurn(std::shared_ptr<Player> active, std::shared_ptr<Player> opp)
 
     if (isHuman)
     {
-        std::cout << "可选卡牌:\n";
+        std::cout << Color::BOLD << "\n>>> 你的回合 (" << active->getName() << ") <<<\n" << Color::RESET;
+        std::cout << "可选卡牌列表:\n";
         for (int i : idxs)
         {
             auto c = board.getSlot(i).card;
             int cost = active->calculateActualCost(c, opp);
-            std::cout << i << ": " << c->getName();
 
+            // 打印卡牌基本信息
+            std::cout << Color::YELLOW << "ID " << std::left << std::setw(2) << i << Color::RESET
+                      << " : " << std::setw(12) << c->getName();
+
+            // 打印价格
             if (cost == 0 && !c->getChainCost().empty())
                 std::cout << Color::GREEN << " [连锁免费]" << Color::RESET;
             else if (cost == -1)
-                std::cout << Color::RED << " [买不起]" << Color::RESET;
+                std::cout << Color::RED << " [资源不足且钱不够]" << Color::RESET;
+            else if (cost == 0)
+                 std::cout << Color::GREEN << " [免费]" << Color::RESET;
             else
-                std::cout << " $" << cost;
+                std::cout << " [需支付: " << cost << "金]";
 
-            if (c->getImmediateCoins() > 0)
-                std::cout << " (得" << c->getImmediateCoins() << "$)";
+            // 打印详细说明 (工会效果等)
+            std::string desc = getCardDesc(c);
+            if(!desc.empty()) std::cout << " | " << Color::GREY << desc << Color::RESET;
+
             std::cout << "\n";
         }
     }
@@ -612,105 +646,107 @@ bool Game::playTurn(std::shared_ptr<Player> active, std::shared_ptr<Player> opp)
     int action = 1; // 1Build, 2Sell, 3Wonder
     if (isHuman)
     {
-        std::cout << "1.建造  2.卖出(+" << (2 + active->getCardCount(CardType::COMMERCIAL)) << "$)  3.奇迹 >> ";
+        std::cout << "\n你选择了卡牌: " << Color::BOLD << card->getName() << Color::RESET << "\n";
+        std::cout << "请选择操作:\n";
+
+        // 选项1: 建造
+        if(cost != -1)
+            std::cout << "1. 建造 (花费 " << cost << " 金币)\n";
+        else
+            std::cout << Color::GREY << "1. 建造 (不可用: 钱不够)\n" << Color::RESET;
+
+        // 选项2: 卖出
+        int sellValue = 2 + active->getCardCount(CardType::COMMERCIAL);
+        std::cout << "2. 卖出 (获得 " << sellValue << " 金币)\n";
+
+        // 选项3: 建造奇迹 (新增：显示每个奇迹的预估花费)
+        std::cout << "3. 用此牌建造奇迹 (查看下方详情):\n";
+        bool anyWonderBuildable = false;
+        const auto& myWonders = active->getWonders();
+        for(size_t w=0; w<myWonders.size(); ++w) {
+            if(!myWonders[w].isBuilt) {
+                int wCost = active->calculateWonderCost(myWonders[w], opp);
+                std::cout << "   - 按 " << w << " 键建造 [" << myWonders[w].name << "]";
+                if(wCost == -1)
+                    std::cout << Color::RED << " (不可用: 资源/钱不足)" << Color::RESET;
+                else
+                    std::cout << Color::GREEN << " (需补资源费: " << wCost << " 金)" << Color::RESET;
+                std::cout << "\n";
+                if(wCost != -1) anyWonderBuildable = true;
+            }
+        }
+        if(!anyWonderBuildable) std::cout << "   (没有可建造的奇迹)\n";
+
+        std::cout << ">> 请输入指令 (1=建造, 2=卖出, 3=建造奇迹): ";
         std::cin >> action;
     }
     else
     {
-        // AI 逻辑
+        // AI 逻辑保持不变...
         bool canWonder = false;
         for (int i = 0; i < 4; ++i)
             if (active->canBuildWonder(i, opp))
                 canWonder = true;
 
-        if (canWonder && wondersBuiltCount < 7)
-            action = 3;
-        else if (cost != -1)
-            action = 1;
-        else
-            action = 2;
+        if (canWonder && wondersBuiltCount < 7) action = 3;
+        else if (cost != -1) action = 1;
+        else action = 2;
     }
 
+    // 执行逻辑
     if (action == 1 && cost != -1)
     {
-        // 建造
+        // 建议从: bool pairTrigger = active->buildCard(card, cost); 开始
         bool pairTrigger = active->buildCard(card, cost);
-        if (pairTrigger)
-            handleTokenSelection(active);
-
-        // 即时金币
-        if (card->getImmediateCoins() > 0)
-            active->addCoins(card->getImmediateCoins());
-
-        // 经济学 Token: 贸易费给对手
-        if (opp->hasToken(TokenType::ECONOMY) && cost > 0)
-        {
+        if (pairTrigger) handleTokenSelection(active);
+        if (card->getImmediateCoins() > 0) active->addCoins(card->getImmediateCoins());
+        if (opp->hasToken(TokenType::ECONOMY) && cost > 0) {
             int tradeEstimate = std::max(0, cost - card->getCostCoins());
-            if (tradeEstimate > 0)
-                opp->addCoins(tradeEstimate);
+            if (tradeEstimate > 0) opp->addCoins(tradeEstimate);
         }
-
-        if (card->getType() == CardType::MILITARY)
-        {
-            // militaryToken 正向是 P1 优势区(右移), 负向是 P2 优势区(左移)
-            // 这里我们统一定义: P1 让标记右移(+), P2 让标记左移(-)
-            // 之前的 drawHeader 逻辑是: 负数区为P1优势，正数区为P2优势。
-            // 让我们修正 drawHeader 的逻辑以匹配直觉: P1 把标记推向 P2 (正数方向)，P2 推向 P1 (负数方向)
-
-            // 修正后的推力逻辑：
+        if (card->getType() == CardType::MILITARY) {
             int shields = card->getShields();
-            if (active == p1)
-                militaryToken += shields; // P1 向右推
-            else
-                militaryToken -= shields; // P2 向左推
+            if (active == p1) militaryToken += shields;
+            else militaryToken -= shields;
         }
+        std::cout << Color::GREEN << ">>> 建造成功! <<<" << Color::RESET << "\n";
     }
-    else if (action == 3)
+    else if (action == 3) // 奇迹逻辑修改以支持子选项
     {
-        // 奇迹
-        if (wondersBuiltCount >= 7)
-        {
-            std::cout << Color::RED << "!!! 奇迹上限已满(7) !!! 强制卖出。\n"
-                      << Color::RESET;
+        if (wondersBuiltCount >= 7) {
+            std::cout << Color::RED << "!!! 奇迹上限已满(7) !!! 强制卖出。\n" << Color::RESET;
             active->addCoins(2 + active->getCardCount(CardType::COMMERCIAL));
             board.addToDiscard(card);
-        }
-        else
-        {
+        } else {
             int wid = 0;
-            if (isHuman)
-            {
-                std::cout << "输入奇迹 ID (0-3): ";
+            if (isHuman) {
+                std::cout << "请输入要建造的奇迹 ID (0-3): ";
                 std::cin >> wid;
-            }
-            else
-            {
-                for (int i = 0; i < 4; ++i)
-                    if (active->canBuildWonder(i, opp))
-                        wid = i;
+            } else {
+                for (int i = 0; i < 4; ++i) if (active->canBuildWonder(i, opp)) wid = i;
             }
 
-            if (active->canBuildWonder(wid, opp))
-            {
-                active->buildWonder(wid, active->calculateWonderCost(active->getWonders()[wid], opp));
+            if (active->canBuildWonder(wid, opp)) {
+                int wCost = active->calculateWonderCost(active->getWonders()[wid], opp);
+                active->buildWonder(wid, wCost);
                 wondersBuiltCount++;
+                std::cout << Color::MAGENTA << ">>> 奇迹建造成功! <<<" << Color::RESET << "\n";
+
                 auto w = active->getWonders()[wid];
-                if (w.hasReplay || active->hasToken(TokenType::THEOLOGY))
-                    replay = true;
+                if (w.hasReplay || active->hasToken(TokenType::THEOLOGY)) replay = true;
                 handleWonderEffect(w.effect, active, opp);
-            }
-            else
-            {
-                std::cout << "无法建造该奇迹，转为卖出。\n";
+            } else {
+                std::cout << Color::RED << "无法建造该奇迹(钱不够或已建)，操作取消，自动转为卖出。\n" << Color::RESET;
                 active->addCoins(2 + active->getCardCount(CardType::COMMERCIAL));
                 board.addToDiscard(card);
             }
         }
     }
-    else
+    else // 卖出逻辑
     {
-        // 卖出
-        active->addCoins(2 + active->getCardCount(CardType::COMMERCIAL));
+        int val = 2 + active->getCardCount(CardType::COMMERCIAL);
+        std::cout << Color::YELLOW << ">>> 卖出卡牌，获得 " << val << " 金币 <<<" << Color::RESET << "\n";
+        active->addCoins(val);
         board.addToDiscard(card);
     }
     return replay;
