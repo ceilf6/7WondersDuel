@@ -32,6 +32,8 @@ assets/
 
 # 配置文件
 CONFIG*
+.claude/
+.vscode/
 
 # 日志文件
 *.log
