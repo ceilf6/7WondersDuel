@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "BaseGameCardFactory.h"
 #include <iostream>
 #include <algorithm>
 #include <random>
@@ -12,7 +13,13 @@ void clearScreen()
     std::cout << "\033[2J\033[1;1H";
 }
 
-Game::Game() : currentAge(1), isGameOver(false), militaryToken(0), wondersBuiltCount(0) {}
+Game::Game()
+    : currentAge(1), isGameOver(false), militaryToken(0), wondersBuiltCount(0),
+      cardFactory(std::make_shared<BaseGameCardFactory>()) {}
+
+Game::Game(std::shared_ptr<CardFactory> factory)
+    : currentAge(1), isGameOver(false), militaryToken(0), wondersBuiltCount(0),
+      cardFactory(factory) {}
 
 void Game::clearInputBuffer()
 {
