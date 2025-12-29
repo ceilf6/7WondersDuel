@@ -1,5 +1,8 @@
 #include "Game.h"
+#include "GameConfig.h"
 #include "BaseGameCardFactory.h"
+#include "RandomStrategy.h"
+#include "GreedyStrategy.h"
 #include <iostream>
 #include <algorithm>
 #include <random>
@@ -20,6 +23,22 @@ Game::Game()
 Game::Game(std::shared_ptr<CardFactory> factory)
     : currentAge(1), isGameOver(false), militaryToken(0), wondersBuiltCount(0),
       cardFactory(factory) {}
+
+void Game::applyConfig(const GameConfig& config) {
+    // 应用配置参数
+    player1Name = config.player1Name;
+    player2Name = config.player2Name;
+    startingCoins = config.startingCoins;
+    wondersPerPlayer = config.wondersPerPlayer;
+    enableProgressTokens = config.enableProgressTokens;
+
+    // 更新卡牌工厂
+    if (config.cardFactory) {
+        cardFactory = config.cardFactory;
+    } else {
+        cardFactory = config.getCardFactory();
+    }
+}
 
 void Game::clearInputBuffer()
 {
