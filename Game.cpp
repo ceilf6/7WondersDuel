@@ -378,103 +378,7 @@ void Game::handleTokenSelection(std::shared_ptr<Player> p)
     }
 }
 
-// 创建完整卡牌堆
-std::vector<std::shared_ptr<Card>> Game::createDeck(int age)
-{
-    std::vector<std::shared_ptr<Card>> deck;
-    if (age == 1)
-    {
-        // --- 原料 (Raw) ---
-        deck.push_back(std::make_shared<ResourceCard>("伐木场", CardType::RAW_MATERIAL, 0, std::vector<Resource>{Resource::WOOD}));
-        deck.push_back(std::make_shared<ResourceCard>("伐木营地", CardType::RAW_MATERIAL, 1, std::vector<Resource>{Resource::WOOD}));
-        deck.push_back(std::make_shared<ResourceCard>("粘土坑", CardType::RAW_MATERIAL, 0, std::vector<Resource>{Resource::CLAY}));
-        deck.push_back(std::make_shared<ResourceCard>("采泥坑", CardType::RAW_MATERIAL, 1, std::vector<Resource>{Resource::CLAY}));
-        deck.push_back(std::make_shared<ResourceCard>("采石场", CardType::RAW_MATERIAL, 0, std::vector<Resource>{Resource::STONE}));
-        deck.push_back(std::make_shared<ResourceCard>("石坑", CardType::RAW_MATERIAL, 1, std::vector<Resource>{Resource::STONE}));
-        // --- 制造 (Manufactured) ---
-        deck.push_back(std::make_shared<ResourceCard>("玻璃厂", CardType::MANUFACTURED, 1, std::vector<Resource>{Resource::GLASS}));
-        deck.push_back(std::make_shared<ResourceCard>("印刷厂", CardType::MANUFACTURED, 1, std::vector<Resource>{Resource::PAPYRUS}));
-        // --- 商业 (Commercial) ---
-        deck.push_back(std::make_shared<CommercialCard>("木材储备", 3, Resource::WOOD, 0));
-        deck.push_back(std::make_shared<CommercialCard>("粘土储备", 3, Resource::CLAY, 0));
-        deck.push_back(std::make_shared<CommercialCard>("石材储备", 3, Resource::STONE, 0));
-        // --- 军事 (Military) ---
-        deck.push_back(std::make_shared<MilitaryCard>("马厩", 0, std::map<Resource, int>{{Resource::WOOD, 1}}, 1, "Horseshoe", ""));
-        deck.push_back(std::make_shared<MilitaryCard>("驻军", 0, std::map<Resource, int>{{Resource::CLAY, 1}}, 1, "Sword", ""));
-        deck.push_back(std::make_shared<MilitaryCard>("栅栏", 0, std::map<Resource, int>{{Resource::STONE, 1}}, 1, "Tower", ""));
-        deck.push_back(std::make_shared<MilitaryCard>("守卫塔", 0, std::map<Resource, int>{}, 1));
-        // --- 科技 (Science) ---
-        deck.push_back(std::make_shared<ScienceCard>("药剂师", 2, std::map<Resource, int>{}, ScienceSymbol::WHEEL, 1, "Gear", ""));
-        deck.push_back(std::make_shared<ScienceCard>("工坊", 2, std::map<Resource, int>{}, ScienceSymbol::GLOBE, 1, "Scope", ""));
-        deck.push_back(std::make_shared<ScienceCard>("写字间", 2, std::map<Resource, int>{}, ScienceSymbol::WRITING, 1, "Book", ""));
-        deck.push_back(std::make_shared<ScienceCard>("药房", 2, std::map<Resource, int>{}, ScienceSymbol::MORTAR, 1, "Pestle", ""));
-        // --- 平民 (Civilian) ---
-        deck.push_back(std::make_shared<CivilianCard>("祭坛", 0, std::map<Resource, int>{}, 3, "Moon", ""));
-        deck.push_back(std::make_shared<CivilianCard>("剧院", 0, std::map<Resource, int>{}, 3, "Mask", ""));
-        deck.push_back(std::make_shared<CivilianCard>("澡堂", 0, std::map<Resource, int>{{Resource::STONE, 1}}, 3, "Drop", ""));
-        deck.push_back(std::make_shared<CivilianCard>("当铺", 0, std::map<Resource, int>{}, 3));
-    }
-    else if (age == 2)
-    {
-        // --- Raw ---
-        deck.push_back(std::make_shared<ResourceCard>("锯木厂", CardType::RAW_MATERIAL, 2, std::vector<Resource>{Resource::WOOD, Resource::WOOD}));
-        deck.push_back(std::make_shared<ResourceCard>("砖厂", CardType::RAW_MATERIAL, 2, std::vector<Resource>{Resource::CLAY, Resource::CLAY}));
-        deck.push_back(std::make_shared<ResourceCard>("层状采石场", CardType::RAW_MATERIAL, 2, std::vector<Resource>{Resource::STONE, Resource::STONE}));
-        // --- Man ---
-        deck.push_back(std::make_shared<ResourceCard>("玻璃吹制", CardType::MANUFACTURED, 0, std::vector<Resource>{Resource::GLASS}));
-        deck.push_back(std::make_shared<ResourceCard>("干燥室", CardType::MANUFACTURED, 0, std::vector<Resource>{Resource::PAPYRUS}));
-        // --- Com ---
-        deck.push_back(std::make_shared<ResourceCard>("论坛", CardType::COMMERCIAL, 3, std::vector<Resource>{Resource::GLASS, Resource::PAPYRUS}));
-        deck.push_back(std::make_shared<CommercialCard>("酿酒厂", 0, Resource::NONE, 0, 6)); // 产6金币
-        deck.push_back(std::make_shared<ResourceCard>("驿站", CardType::COMMERCIAL, 2, std::vector<Resource>{Resource::WOOD, Resource::CLAY, Resource::STONE}));
-        // --- Mil ---
-        deck.push_back(std::make_shared<MilitaryCard>("骑兵", 3, std::map<Resource, int>{{Resource::WOOD, 1}}, 2, "", "Horseshoe"));
-        deck.push_back(std::make_shared<MilitaryCard>("城墙", 0, std::map<Resource, int>{{Resource::STONE, 2}}, 2));
-        deck.push_back(std::make_shared<MilitaryCard>("军械库", 0, std::map<Resource, int>{{Resource::WOOD, 2}, {Resource::CLAY, 1}}, 2));
-        deck.push_back(std::make_shared<MilitaryCard>("靶场", 0, std::map<Resource, int>{{Resource::STONE, 1}, {Resource::WOOD, 1}}, 2, "", "Target"));
-        // --- Sci ---
-        deck.push_back(std::make_shared<ScienceCard>("图书馆", 2, std::map<Resource, int>{{Resource::STONE, 1}, {Resource::WOOD, 1}}, ScienceSymbol::WRITING, 2, "", "Book"));
-        deck.push_back(std::make_shared<ScienceCard>("学校", 2, std::map<Resource, int>{{Resource::WOOD, 1}, {Resource::PAPYRUS, 1}}, ScienceSymbol::WHEEL, 2, "", "Gear"));
-        deck.push_back(std::make_shared<ScienceCard>("实验室", 2, std::map<Resource, int>{{Resource::CLAY, 2}}, ScienceSymbol::GLOBE, 2, "", "Scope"));
-        deck.push_back(std::make_shared<ScienceCard>("医务室", 2, std::map<Resource, int>{{Resource::STONE, 2}}, ScienceSymbol::MORTAR, 2, "", "Pestle"));
-        // --- Civ ---
-        deck.push_back(std::make_shared<CivilianCard>("雕像", 0, std::map<Resource, int>{{Resource::CLAY, 2}}, 4, "", "Theater"));
-        deck.push_back(std::make_shared<CivilianCard>("神庙", 0, std::map<Resource, int>{{Resource::WOOD, 1}, {Resource::GLASS, 1}}, 4, "", "Moon"));
-        deck.push_back(std::make_shared<CivilianCard>("引水渠", 0, std::map<Resource, int>{{Resource::STONE, 3}}, 5, "", "Drop"));
-        deck.push_back(std::make_shared<CivilianCard>("讲坛", 0, std::map<Resource, int>{{Resource::STONE, 1}, {Resource::WOOD, 1}}, 4, "Sun", ""));
-    }
-    else
-    { // Age 3
-        // --- Guilds ---
-        deck.push_back(std::make_shared<GuildCard>("商人工会", std::map<Resource, int>{{Resource::WOOD, 1}, {Resource::GLASS, 1}}, "Merchants"));
-        deck.push_back(std::make_shared<GuildCard>("船主工会", std::map<Resource, int>{{Resource::CLAY, 1}, {Resource::GLASS, 1}, {Resource::PAPYRUS, 1}}, "Shipowners"));
-        deck.push_back(std::make_shared<GuildCard>("科学家工会", std::map<Resource, int>{{Resource::WOOD, 2}}, "Scientists"));
-        deck.push_back(std::make_shared<GuildCard>("行政官工会", std::map<Resource, int>{{Resource::WOOD, 2}, {Resource::PAPYRUS, 1}}, "Magistrates"));
-        deck.push_back(std::make_shared<GuildCard>("建造者工会", std::map<Resource, int>{{Resource::STONE, 2}, {Resource::CLAY, 1}}, "Builders"));
-        deck.push_back(std::make_shared<GuildCard>("战术家工会", std::map<Resource, int>{{Resource::STONE, 2}, {Resource::CLAY, 1}}, "Tacticians"));
-        deck.push_back(std::make_shared<GuildCard>("放贷人工会", std::map<Resource, int>{{Resource::WOOD, 2}, {Resource::STONE, 2}}, "Moneylenders"));
-
-        // --- Mil ---
-        deck.push_back(std::make_shared<MilitaryCard>("要塞", 0, std::map<Resource, int>{{Resource::STONE, 2}, {Resource::CLAY, 2}}, 3));
-        deck.push_back(std::make_shared<MilitaryCard>("攻城锤", 0, std::map<Resource, int>{{Resource::WOOD, 3}}, 3));
-        deck.push_back(std::make_shared<MilitaryCard>("竞技场", 0, std::map<Resource, int>{{Resource::CLAY, 2}, {Resource::STONE, 1}}, 3));
-
-        // --- Sci ---
-        deck.push_back(std::make_shared<ScienceCard>("天文台", 0, std::map<Resource, int>{{Resource::STONE, 2}, {Resource::PAPYRUS, 1}}, ScienceSymbol::MECHANIC, 3, "", "Sun"));
-        deck.push_back(std::make_shared<ScienceCard>("大学", 0, std::map<Resource, int>{{Resource::CLAY, 2}, {Resource::GLASS, 1}}, ScienceSymbol::GLOBE, 3));
-        deck.push_back(std::make_shared<ScienceCard>("研究院", 0, std::map<Resource, int>{{Resource::WOOD, 2}, {Resource::GLASS, 1}}, ScienceSymbol::WHEEL, 3));
-
-        // --- Civ ---
-        deck.push_back(std::make_shared<CivilianCard>("宫殿", 0, std::map<Resource, int>{{Resource::STONE, 1}, {Resource::GLASS, 1}}, 7));
-        deck.push_back(std::make_shared<CivilianCard>("方尖碑", 0, std::map<Resource, int>{{Resource::STONE, 2}}, 5));
-        deck.push_back(std::make_shared<CivilianCard>("花园", 0, std::map<Resource, int>{{Resource::CLAY, 2}, {Resource::WOOD, 2}}, 6));
-        deck.push_back(std::make_shared<CivilianCard>("参议院", 0, std::map<Resource, int>{{Resource::CLAY, 2}, {Resource::PAPYRUS, 1}}, 5));
-        deck.push_back(std::make_shared<MilitaryCard>("马戏团", 0, std::map<Resource, int>{{Resource::STONE, 2}, {Resource::WOOD, 2}}, 3));
-        deck.push_back(std::make_shared<CivilianCard>("市政厅", 0, std::map<Resource, int>{{Resource::STONE, 3}}, 6));
-        deck.push_back(std::make_shared<ScienceCard>("学院", 0, std::map<Resource, int>{{Resource::GLASS, 1}, {Resource::PAPYRUS, 1}}, ScienceSymbol::WRITING, 3));
-    }
-    return deck;
-}
+// [Factory Pattern] createDeck方法已被CardFactory替代，数据移至BaseGameCardFactory
 
 void Game::run()
 {
@@ -487,7 +391,8 @@ void Game::run()
             break;
         currentAge = age;
 
-        auto deck = createDeck(age);
+        // [Factory Pattern] 使用工厂创建卡牌
+        auto deck = cardFactory->createDeck(age);
         unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
         std::shuffle(deck.begin(), deck.end(), std::default_random_engine(seed));
         board.initAge(age, deck);

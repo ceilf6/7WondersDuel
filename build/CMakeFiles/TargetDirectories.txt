@@ -1,0 +1,3 @@
+/Users/a86198/Desktop/LO02_7WondersDuel/build/CMakeFiles/qidaqijiduijue.dir
+/Users/a86198/Desktop/LO02_7WondersDuel/build/CMakeFiles/edit_cache.dir
+/Users/a86198/Desktop/LO02_7WondersDuel/build/CMakeFiles/rebuild_cache.dir

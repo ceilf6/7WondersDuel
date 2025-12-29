@@ -8,6 +8,11 @@ add_executable(qidaqijiduijue main.cpp
         Board.cpp
         Card.cpp
         Card.h
+        CardData.h
+        CardFactory.h
+        CardFactory.cpp
+        BaseGameCardFactory.h
+        BaseGameCardFactory.cpp
         Commons.h
         Game.cpp
         Game.h
