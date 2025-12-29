@@ -17,6 +17,12 @@ add_executable(qidaqijiduijue main.cpp
         GameConfig.cpp
         GameBuilder.h
         GameBuilder.cpp
+        AIStrategy.h
+        AIStrategy.cpp
+        RandomStrategy.h
+        RandomStrategy.cpp
+        GreedyStrategy.h
+        GreedyStrategy.cpp
         Commons.h
         Game.cpp
         Game.h
