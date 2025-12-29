@@ -13,6 +13,10 @@ add_executable(qidaqijiduijue main.cpp
         CardFactory.cpp
         BaseGameCardFactory.h
         BaseGameCardFactory.cpp
+        GameConfig.h
+        GameConfig.cpp
+        GameBuilder.h
+        GameBuilder.cpp
         Commons.h
         Game.cpp
         Game.h
