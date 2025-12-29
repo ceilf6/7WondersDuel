@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 4.0)
-project(qidaqijiduijue)
+project(7WondersDuel)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(qidaqijiduijue main.cpp
+add_executable(7WondersDuel main.cpp
         Board.h
         Board.cpp
         Card.cpp
