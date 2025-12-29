@@ -13,6 +13,10 @@ add_executable(qidaqijiduijue main.cpp
         CardFactory.cpp
         BaseGameCardFactory.h
         BaseGameCardFactory.cpp
+        AgoraCardFactory.h
+        AgoraCardFactory.cpp
+        PantheonCardFactory.h
+        PantheonCardFactory.cpp
         GameConfig.h
         GameConfig.cpp
         GameBuilder.h
@@ -23,6 +27,9 @@ add_executable(qidaqijiduijue main.cpp
         RandomStrategy.cpp
         GreedyStrategy.h
         GreedyStrategy.cpp
+        CardDecorator.h
+        CardVisitor.h
+        ExtensionAdapter.h
         Commons.h
         Game.cpp
         Game.h

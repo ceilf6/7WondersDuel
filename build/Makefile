@@ -136,6 +136,54 @@ qidaqijiduijue/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/build
 .PHONY : qidaqijiduijue/fast
 
+AIStrategy.o: AIStrategy.cpp.o
+.PHONY : AIStrategy.o
+
+# target to build an object file
+AIStrategy.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/AIStrategy.cpp.o
+.PHONY : AIStrategy.cpp.o
+
+AIStrategy.i: AIStrategy.cpp.i
+.PHONY : AIStrategy.i
+
+# target to preprocess a source file
+AIStrategy.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/AIStrategy.cpp.i
+.PHONY : AIStrategy.cpp.i
+
+AIStrategy.s: AIStrategy.cpp.s
+.PHONY : AIStrategy.s
+
+# target to generate assembly for a file
+AIStrategy.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/AIStrategy.cpp.s
+.PHONY : AIStrategy.cpp.s
+
+AgoraCardFactory.o: AgoraCardFactory.cpp.o
+.PHONY : AgoraCardFactory.o
+
+# target to build an object file
+AgoraCardFactory.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/AgoraCardFactory.cpp.o
+.PHONY : AgoraCardFactory.cpp.o
+
+AgoraCardFactory.i: AgoraCardFactory.cpp.i
+.PHONY : AgoraCardFactory.i
+
+# target to preprocess a source file
+AgoraCardFactory.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/AgoraCardFactory.cpp.i
+.PHONY : AgoraCardFactory.cpp.i
+
+AgoraCardFactory.s: AgoraCardFactory.cpp.s
+.PHONY : AgoraCardFactory.s
+
+# target to generate assembly for a file
+AgoraCardFactory.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/AgoraCardFactory.cpp.s
+.PHONY : AgoraCardFactory.cpp.s
+
 BaseGameCardFactory.o: BaseGameCardFactory.cpp.o
 .PHONY : BaseGameCardFactory.o
 
@@ -256,6 +304,102 @@ Game.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/Game.cpp.s
 .PHONY : Game.cpp.s
 
+GameBuilder.o: GameBuilder.cpp.o
+.PHONY : GameBuilder.o
+
+# target to build an object file
+GameBuilder.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/GameBuilder.cpp.o
+.PHONY : GameBuilder.cpp.o
+
+GameBuilder.i: GameBuilder.cpp.i
+.PHONY : GameBuilder.i
+
+# target to preprocess a source file
+GameBuilder.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/GameBuilder.cpp.i
+.PHONY : GameBuilder.cpp.i
+
+GameBuilder.s: GameBuilder.cpp.s
+.PHONY : GameBuilder.s
+
+# target to generate assembly for a file
+GameBuilder.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/GameBuilder.cpp.s
+.PHONY : GameBuilder.cpp.s
+
+GameConfig.o: GameConfig.cpp.o
+.PHONY : GameConfig.o
+
+# target to build an object file
+GameConfig.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/GameConfig.cpp.o
+.PHONY : GameConfig.cpp.o
+
+GameConfig.i: GameConfig.cpp.i
+.PHONY : GameConfig.i
+
+# target to preprocess a source file
+GameConfig.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/GameConfig.cpp.i
+.PHONY : GameConfig.cpp.i
+
+GameConfig.s: GameConfig.cpp.s
+.PHONY : GameConfig.s
+
+# target to generate assembly for a file
+GameConfig.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/GameConfig.cpp.s
+.PHONY : GameConfig.cpp.s
+
+GreedyStrategy.o: GreedyStrategy.cpp.o
+.PHONY : GreedyStrategy.o
+
+# target to build an object file
+GreedyStrategy.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/GreedyStrategy.cpp.o
+.PHONY : GreedyStrategy.cpp.o
+
+GreedyStrategy.i: GreedyStrategy.cpp.i
+.PHONY : GreedyStrategy.i
+
+# target to preprocess a source file
+GreedyStrategy.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/GreedyStrategy.cpp.i
+.PHONY : GreedyStrategy.cpp.i
+
+GreedyStrategy.s: GreedyStrategy.cpp.s
+.PHONY : GreedyStrategy.s
+
+# target to generate assembly for a file
+GreedyStrategy.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/GreedyStrategy.cpp.s
+.PHONY : GreedyStrategy.cpp.s
+
+PantheonCardFactory.o: PantheonCardFactory.cpp.o
+.PHONY : PantheonCardFactory.o
+
+# target to build an object file
+PantheonCardFactory.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/PantheonCardFactory.cpp.o
+.PHONY : PantheonCardFactory.cpp.o
+
+PantheonCardFactory.i: PantheonCardFactory.cpp.i
+.PHONY : PantheonCardFactory.i
+
+# target to preprocess a source file
+PantheonCardFactory.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/PantheonCardFactory.cpp.i
+.PHONY : PantheonCardFactory.cpp.i
+
+PantheonCardFactory.s: PantheonCardFactory.cpp.s
+.PHONY : PantheonCardFactory.s
+
+# target to generate assembly for a file
+PantheonCardFactory.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/PantheonCardFactory.cpp.s
+.PHONY : PantheonCardFactory.cpp.s
+
 Player.o: Player.cpp.o
 .PHONY : Player.o
 
@@ -279,6 +423,30 @@ Player.s: Player.cpp.s
 Player.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/Player.cpp.s
 .PHONY : Player.cpp.s
+
+RandomStrategy.o: RandomStrategy.cpp.o
+.PHONY : RandomStrategy.o
+
+# target to build an object file
+RandomStrategy.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/RandomStrategy.cpp.o
+.PHONY : RandomStrategy.cpp.o
+
+RandomStrategy.i: RandomStrategy.cpp.i
+.PHONY : RandomStrategy.i
+
+# target to preprocess a source file
+RandomStrategy.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/RandomStrategy.cpp.i
+.PHONY : RandomStrategy.cpp.i
+
+RandomStrategy.s: RandomStrategy.cpp.s
+.PHONY : RandomStrategy.s
+
+# target to generate assembly for a file
+RandomStrategy.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qidaqijiduijue.dir/build.make CMakeFiles/qidaqijiduijue.dir/RandomStrategy.cpp.s
+.PHONY : RandomStrategy.cpp.s
 
 SmartAI.o: SmartAI.cpp.o
 .PHONY : SmartAI.o
@@ -338,6 +506,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... qidaqijiduijue"
+	@echo "... AIStrategy.o"
+	@echo "... AIStrategy.i"
+	@echo "... AIStrategy.s"
+	@echo "... AgoraCardFactory.o"
+	@echo "... AgoraCardFactory.i"
+	@echo "... AgoraCardFactory.s"
 	@echo "... BaseGameCardFactory.o"
 	@echo "... BaseGameCardFactory.i"
 	@echo "... BaseGameCardFactory.s"
@@ -353,9 +527,24 @@ help:
 	@echo "... Game.o"
 	@echo "... Game.i"
 	@echo "... Game.s"
+	@echo "... GameBuilder.o"
+	@echo "... GameBuilder.i"
+	@echo "... GameBuilder.s"
+	@echo "... GameConfig.o"
+	@echo "... GameConfig.i"
+	@echo "... GameConfig.s"
+	@echo "... GreedyStrategy.o"
+	@echo "... GreedyStrategy.i"
+	@echo "... GreedyStrategy.s"
+	@echo "... PantheonCardFactory.o"
+	@echo "... PantheonCardFactory.i"
+	@echo "... PantheonCardFactory.s"
 	@echo "... Player.o"
 	@echo "... Player.i"
 	@echo "... Player.s"
+	@echo "... RandomStrategy.o"
+	@echo "... RandomStrategy.i"
+	@echo "... RandomStrategy.s"
 	@echo "... SmartAI.o"
 	@echo "... SmartAI.i"
 	@echo "... SmartAI.s"

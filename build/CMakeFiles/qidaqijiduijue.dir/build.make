@@ -142,10 +142,108 @@ CMakeFiles/qidaqijiduijue.dir/BaseGameCardFactory.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/qidaqijiduijue.dir/BaseGameCardFactory.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/a86198/Desktop/LO02_7WondersDuel/BaseGameCardFactory.cpp -o CMakeFiles/qidaqijiduijue.dir/BaseGameCardFactory.cpp.s
 
+CMakeFiles/qidaqijiduijue.dir/AgoraCardFactory.cpp.o: CMakeFiles/qidaqijiduijue.dir/flags.make
+CMakeFiles/qidaqijiduijue.dir/AgoraCardFactory.cpp.o: /Users/a86198/Desktop/LO02_7WondersDuel/AgoraCardFactory.cpp
+CMakeFiles/qidaqijiduijue.dir/AgoraCardFactory.cpp.o: CMakeFiles/qidaqijiduijue.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/a86198/Desktop/LO02_7WondersDuel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/qidaqijiduijue.dir/AgoraCardFactory.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qidaqijiduijue.dir/AgoraCardFactory.cpp.o -MF CMakeFiles/qidaqijiduijue.dir/AgoraCardFactory.cpp.o.d -o CMakeFiles/qidaqijiduijue.dir/AgoraCardFactory.cpp.o -c /Users/a86198/Desktop/LO02_7WondersDuel/AgoraCardFactory.cpp
+
+CMakeFiles/qidaqijiduijue.dir/AgoraCardFactory.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/qidaqijiduijue.dir/AgoraCardFactory.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/a86198/Desktop/LO02_7WondersDuel/AgoraCardFactory.cpp > CMakeFiles/qidaqijiduijue.dir/AgoraCardFactory.cpp.i
+
+CMakeFiles/qidaqijiduijue.dir/AgoraCardFactory.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/qidaqijiduijue.dir/AgoraCardFactory.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/a86198/Desktop/LO02_7WondersDuel/AgoraCardFactory.cpp -o CMakeFiles/qidaqijiduijue.dir/AgoraCardFactory.cpp.s
+
+CMakeFiles/qidaqijiduijue.dir/PantheonCardFactory.cpp.o: CMakeFiles/qidaqijiduijue.dir/flags.make
+CMakeFiles/qidaqijiduijue.dir/PantheonCardFactory.cpp.o: /Users/a86198/Desktop/LO02_7WondersDuel/PantheonCardFactory.cpp
+CMakeFiles/qidaqijiduijue.dir/PantheonCardFactory.cpp.o: CMakeFiles/qidaqijiduijue.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/a86198/Desktop/LO02_7WondersDuel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/qidaqijiduijue.dir/PantheonCardFactory.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qidaqijiduijue.dir/PantheonCardFactory.cpp.o -MF CMakeFiles/qidaqijiduijue.dir/PantheonCardFactory.cpp.o.d -o CMakeFiles/qidaqijiduijue.dir/PantheonCardFactory.cpp.o -c /Users/a86198/Desktop/LO02_7WondersDuel/PantheonCardFactory.cpp
+
+CMakeFiles/qidaqijiduijue.dir/PantheonCardFactory.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/qidaqijiduijue.dir/PantheonCardFactory.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/a86198/Desktop/LO02_7WondersDuel/PantheonCardFactory.cpp > CMakeFiles/qidaqijiduijue.dir/PantheonCardFactory.cpp.i
+
+CMakeFiles/qidaqijiduijue.dir/PantheonCardFactory.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/qidaqijiduijue.dir/PantheonCardFactory.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/a86198/Desktop/LO02_7WondersDuel/PantheonCardFactory.cpp -o CMakeFiles/qidaqijiduijue.dir/PantheonCardFactory.cpp.s
+
+CMakeFiles/qidaqijiduijue.dir/GameConfig.cpp.o: CMakeFiles/qidaqijiduijue.dir/flags.make
+CMakeFiles/qidaqijiduijue.dir/GameConfig.cpp.o: /Users/a86198/Desktop/LO02_7WondersDuel/GameConfig.cpp
+CMakeFiles/qidaqijiduijue.dir/GameConfig.cpp.o: CMakeFiles/qidaqijiduijue.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/a86198/Desktop/LO02_7WondersDuel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/qidaqijiduijue.dir/GameConfig.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qidaqijiduijue.dir/GameConfig.cpp.o -MF CMakeFiles/qidaqijiduijue.dir/GameConfig.cpp.o.d -o CMakeFiles/qidaqijiduijue.dir/GameConfig.cpp.o -c /Users/a86198/Desktop/LO02_7WondersDuel/GameConfig.cpp
+
+CMakeFiles/qidaqijiduijue.dir/GameConfig.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/qidaqijiduijue.dir/GameConfig.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/a86198/Desktop/LO02_7WondersDuel/GameConfig.cpp > CMakeFiles/qidaqijiduijue.dir/GameConfig.cpp.i
+
+CMakeFiles/qidaqijiduijue.dir/GameConfig.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/qidaqijiduijue.dir/GameConfig.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/a86198/Desktop/LO02_7WondersDuel/GameConfig.cpp -o CMakeFiles/qidaqijiduijue.dir/GameConfig.cpp.s
+
+CMakeFiles/qidaqijiduijue.dir/GameBuilder.cpp.o: CMakeFiles/qidaqijiduijue.dir/flags.make
+CMakeFiles/qidaqijiduijue.dir/GameBuilder.cpp.o: /Users/a86198/Desktop/LO02_7WondersDuel/GameBuilder.cpp
+CMakeFiles/qidaqijiduijue.dir/GameBuilder.cpp.o: CMakeFiles/qidaqijiduijue.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/a86198/Desktop/LO02_7WondersDuel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/qidaqijiduijue.dir/GameBuilder.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qidaqijiduijue.dir/GameBuilder.cpp.o -MF CMakeFiles/qidaqijiduijue.dir/GameBuilder.cpp.o.d -o CMakeFiles/qidaqijiduijue.dir/GameBuilder.cpp.o -c /Users/a86198/Desktop/LO02_7WondersDuel/GameBuilder.cpp
+
+CMakeFiles/qidaqijiduijue.dir/GameBuilder.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/qidaqijiduijue.dir/GameBuilder.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/a86198/Desktop/LO02_7WondersDuel/GameBuilder.cpp > CMakeFiles/qidaqijiduijue.dir/GameBuilder.cpp.i
+
+CMakeFiles/qidaqijiduijue.dir/GameBuilder.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/qidaqijiduijue.dir/GameBuilder.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/a86198/Desktop/LO02_7WondersDuel/GameBuilder.cpp -o CMakeFiles/qidaqijiduijue.dir/GameBuilder.cpp.s
+
+CMakeFiles/qidaqijiduijue.dir/AIStrategy.cpp.o: CMakeFiles/qidaqijiduijue.dir/flags.make
+CMakeFiles/qidaqijiduijue.dir/AIStrategy.cpp.o: /Users/a86198/Desktop/LO02_7WondersDuel/AIStrategy.cpp
+CMakeFiles/qidaqijiduijue.dir/AIStrategy.cpp.o: CMakeFiles/qidaqijiduijue.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/a86198/Desktop/LO02_7WondersDuel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/qidaqijiduijue.dir/AIStrategy.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qidaqijiduijue.dir/AIStrategy.cpp.o -MF CMakeFiles/qidaqijiduijue.dir/AIStrategy.cpp.o.d -o CMakeFiles/qidaqijiduijue.dir/AIStrategy.cpp.o -c /Users/a86198/Desktop/LO02_7WondersDuel/AIStrategy.cpp
+
+CMakeFiles/qidaqijiduijue.dir/AIStrategy.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/qidaqijiduijue.dir/AIStrategy.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/a86198/Desktop/LO02_7WondersDuel/AIStrategy.cpp > CMakeFiles/qidaqijiduijue.dir/AIStrategy.cpp.i
+
+CMakeFiles/qidaqijiduijue.dir/AIStrategy.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/qidaqijiduijue.dir/AIStrategy.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/a86198/Desktop/LO02_7WondersDuel/AIStrategy.cpp -o CMakeFiles/qidaqijiduijue.dir/AIStrategy.cpp.s
+
+CMakeFiles/qidaqijiduijue.dir/RandomStrategy.cpp.o: CMakeFiles/qidaqijiduijue.dir/flags.make
+CMakeFiles/qidaqijiduijue.dir/RandomStrategy.cpp.o: /Users/a86198/Desktop/LO02_7WondersDuel/RandomStrategy.cpp
+CMakeFiles/qidaqijiduijue.dir/RandomStrategy.cpp.o: CMakeFiles/qidaqijiduijue.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/a86198/Desktop/LO02_7WondersDuel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/qidaqijiduijue.dir/RandomStrategy.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qidaqijiduijue.dir/RandomStrategy.cpp.o -MF CMakeFiles/qidaqijiduijue.dir/RandomStrategy.cpp.o.d -o CMakeFiles/qidaqijiduijue.dir/RandomStrategy.cpp.o -c /Users/a86198/Desktop/LO02_7WondersDuel/RandomStrategy.cpp
+
+CMakeFiles/qidaqijiduijue.dir/RandomStrategy.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/qidaqijiduijue.dir/RandomStrategy.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/a86198/Desktop/LO02_7WondersDuel/RandomStrategy.cpp > CMakeFiles/qidaqijiduijue.dir/RandomStrategy.cpp.i
+
+CMakeFiles/qidaqijiduijue.dir/RandomStrategy.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/qidaqijiduijue.dir/RandomStrategy.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/a86198/Desktop/LO02_7WondersDuel/RandomStrategy.cpp -o CMakeFiles/qidaqijiduijue.dir/RandomStrategy.cpp.s
+
+CMakeFiles/qidaqijiduijue.dir/GreedyStrategy.cpp.o: CMakeFiles/qidaqijiduijue.dir/flags.make
+CMakeFiles/qidaqijiduijue.dir/GreedyStrategy.cpp.o: /Users/a86198/Desktop/LO02_7WondersDuel/GreedyStrategy.cpp
+CMakeFiles/qidaqijiduijue.dir/GreedyStrategy.cpp.o: CMakeFiles/qidaqijiduijue.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/a86198/Desktop/LO02_7WondersDuel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/qidaqijiduijue.dir/GreedyStrategy.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qidaqijiduijue.dir/GreedyStrategy.cpp.o -MF CMakeFiles/qidaqijiduijue.dir/GreedyStrategy.cpp.o.d -o CMakeFiles/qidaqijiduijue.dir/GreedyStrategy.cpp.o -c /Users/a86198/Desktop/LO02_7WondersDuel/GreedyStrategy.cpp
+
+CMakeFiles/qidaqijiduijue.dir/GreedyStrategy.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/qidaqijiduijue.dir/GreedyStrategy.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/a86198/Desktop/LO02_7WondersDuel/GreedyStrategy.cpp > CMakeFiles/qidaqijiduijue.dir/GreedyStrategy.cpp.i
+
+CMakeFiles/qidaqijiduijue.dir/GreedyStrategy.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/qidaqijiduijue.dir/GreedyStrategy.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/a86198/Desktop/LO02_7WondersDuel/GreedyStrategy.cpp -o CMakeFiles/qidaqijiduijue.dir/GreedyStrategy.cpp.s
+
 CMakeFiles/qidaqijiduijue.dir/Game.cpp.o: CMakeFiles/qidaqijiduijue.dir/flags.make
 CMakeFiles/qidaqijiduijue.dir/Game.cpp.o: /Users/a86198/Desktop/LO02_7WondersDuel/Game.cpp
 CMakeFiles/qidaqijiduijue.dir/Game.cpp.o: CMakeFiles/qidaqijiduijue.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/a86198/Desktop/LO02_7WondersDuel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/qidaqijiduijue.dir/Game.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/a86198/Desktop/LO02_7WondersDuel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/qidaqijiduijue.dir/Game.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qidaqijiduijue.dir/Game.cpp.o -MF CMakeFiles/qidaqijiduijue.dir/Game.cpp.o.d -o CMakeFiles/qidaqijiduijue.dir/Game.cpp.o -c /Users/a86198/Desktop/LO02_7WondersDuel/Game.cpp
 
 CMakeFiles/qidaqijiduijue.dir/Game.cpp.i: cmake_force
@@ -159,7 +257,7 @@ CMakeFiles/qidaqijiduijue.dir/Game.cpp.s: cmake_force
 CMakeFiles/qidaqijiduijue.dir/Player.cpp.o: CMakeFiles/qidaqijiduijue.dir/flags.make
 CMakeFiles/qidaqijiduijue.dir/Player.cpp.o: /Users/a86198/Desktop/LO02_7WondersDuel/Player.cpp
 CMakeFiles/qidaqijiduijue.dir/Player.cpp.o: CMakeFiles/qidaqijiduijue.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/a86198/Desktop/LO02_7WondersDuel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/qidaqijiduijue.dir/Player.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/a86198/Desktop/LO02_7WondersDuel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/qidaqijiduijue.dir/Player.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qidaqijiduijue.dir/Player.cpp.o -MF CMakeFiles/qidaqijiduijue.dir/Player.cpp.o.d -o CMakeFiles/qidaqijiduijue.dir/Player.cpp.o -c /Users/a86198/Desktop/LO02_7WondersDuel/Player.cpp
 
 CMakeFiles/qidaqijiduijue.dir/Player.cpp.i: cmake_force
@@ -173,7 +271,7 @@ CMakeFiles/qidaqijiduijue.dir/Player.cpp.s: cmake_force
 CMakeFiles/qidaqijiduijue.dir/SmartAI.cpp.o: CMakeFiles/qidaqijiduijue.dir/flags.make
 CMakeFiles/qidaqijiduijue.dir/SmartAI.cpp.o: /Users/a86198/Desktop/LO02_7WondersDuel/SmartAI.cpp
 CMakeFiles/qidaqijiduijue.dir/SmartAI.cpp.o: CMakeFiles/qidaqijiduijue.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/a86198/Desktop/LO02_7WondersDuel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/qidaqijiduijue.dir/SmartAI.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/a86198/Desktop/LO02_7WondersDuel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/qidaqijiduijue.dir/SmartAI.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qidaqijiduijue.dir/SmartAI.cpp.o -MF CMakeFiles/qidaqijiduijue.dir/SmartAI.cpp.o.d -o CMakeFiles/qidaqijiduijue.dir/SmartAI.cpp.o -c /Users/a86198/Desktop/LO02_7WondersDuel/SmartAI.cpp
 
 CMakeFiles/qidaqijiduijue.dir/SmartAI.cpp.i: cmake_force
@@ -191,6 +289,13 @@ qidaqijiduijue_OBJECTS = \
 "CMakeFiles/qidaqijiduijue.dir/Card.cpp.o" \
 "CMakeFiles/qidaqijiduijue.dir/CardFactory.cpp.o" \
 "CMakeFiles/qidaqijiduijue.dir/BaseGameCardFactory.cpp.o" \
+"CMakeFiles/qidaqijiduijue.dir/AgoraCardFactory.cpp.o" \
+"CMakeFiles/qidaqijiduijue.dir/PantheonCardFactory.cpp.o" \
+"CMakeFiles/qidaqijiduijue.dir/GameConfig.cpp.o" \
+"CMakeFiles/qidaqijiduijue.dir/GameBuilder.cpp.o" \
+"CMakeFiles/qidaqijiduijue.dir/AIStrategy.cpp.o" \
+"CMakeFiles/qidaqijiduijue.dir/RandomStrategy.cpp.o" \
+"CMakeFiles/qidaqijiduijue.dir/GreedyStrategy.cpp.o" \
 "CMakeFiles/qidaqijiduijue.dir/Game.cpp.o" \
 "CMakeFiles/qidaqijiduijue.dir/Player.cpp.o" \
 "CMakeFiles/qidaqijiduijue.dir/SmartAI.cpp.o"
@@ -203,12 +308,19 @@ qidaqijiduijue: CMakeFiles/qidaqijiduijue.dir/Board.cpp.o
 qidaqijiduijue: CMakeFiles/qidaqijiduijue.dir/Card.cpp.o
 qidaqijiduijue: CMakeFiles/qidaqijiduijue.dir/CardFactory.cpp.o
 qidaqijiduijue: CMakeFiles/qidaqijiduijue.dir/BaseGameCardFactory.cpp.o
+qidaqijiduijue: CMakeFiles/qidaqijiduijue.dir/AgoraCardFactory.cpp.o
+qidaqijiduijue: CMakeFiles/qidaqijiduijue.dir/PantheonCardFactory.cpp.o
+qidaqijiduijue: CMakeFiles/qidaqijiduijue.dir/GameConfig.cpp.o
+qidaqijiduijue: CMakeFiles/qidaqijiduijue.dir/GameBuilder.cpp.o
+qidaqijiduijue: CMakeFiles/qidaqijiduijue.dir/AIStrategy.cpp.o
+qidaqijiduijue: CMakeFiles/qidaqijiduijue.dir/RandomStrategy.cpp.o
+qidaqijiduijue: CMakeFiles/qidaqijiduijue.dir/GreedyStrategy.cpp.o
 qidaqijiduijue: CMakeFiles/qidaqijiduijue.dir/Game.cpp.o
 qidaqijiduijue: CMakeFiles/qidaqijiduijue.dir/Player.cpp.o
 qidaqijiduijue: CMakeFiles/qidaqijiduijue.dir/SmartAI.cpp.o
 qidaqijiduijue: CMakeFiles/qidaqijiduijue.dir/build.make
 qidaqijiduijue: CMakeFiles/qidaqijiduijue.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/a86198/Desktop/LO02_7WondersDuel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable qidaqijiduijue"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/a86198/Desktop/LO02_7WondersDuel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable qidaqijiduijue"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/qidaqijiduijue.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

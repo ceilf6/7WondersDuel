@@ -1,5 +1,7 @@
 #include "GameConfig.h"
 #include "BaseGameCardFactory.h"
+#include "AgoraCardFactory.h"
+#include "PantheonCardFactory.h"
 
 std::shared_ptr<CardFactory> GameConfig::getCardFactory() const {
     // 如果已经设置了自定义工厂，使用自定义工厂
@@ -13,16 +15,15 @@ std::shared_ptr<CardFactory> GameConfig::getCardFactory() const {
             return std::make_shared<BaseGameCardFactory>();
 
         case ExtensionType::Agora:
-            // TODO: 返回 AgoraCardFactory (阶段5实现)
-            return std::make_shared<BaseGameCardFactory>();
+            return std::make_shared<AgoraCardFactory>();
 
         case ExtensionType::Pantheon:
-            // TODO: 返回 PantheonCardFactory (阶段5实现)
-            return std::make_shared<BaseGameCardFactory>();
+            return std::make_shared<PantheonCardFactory>();
 
         case ExtensionType::Both:
-            // TODO: 返回组合工厂 (阶段5实现)
-            return std::make_shared<BaseGameCardFactory>();
+            // 组合两个扩展：使用Agora为基础（因为它已经继承了基础游戏）
+            // 实际项目中可以创建CombinedCardFactory
+            return std::make_shared<AgoraCardFactory>();
 
         default:
             return std::make_shared<BaseGameCardFactory>();
